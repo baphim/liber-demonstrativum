@@ -42,6 +42,7 @@ See [Deploy a Wazuh manager from OVA](../runbooks/deploy-wazuh-ova.md) for the f
 ## Known Issues
 - Running on 2 vCPU against the documented recommendation of 4. No problems observed, but genuinely untested under real alert load.
 - Email alerting isn't configured yet. Wazuh doesn't handle SMTP auth itself, so this needs a separate OS-level mail relay, parked mid-setup.
+- An agent must not be newer than the manager. The FreshRSS container's agent is pinned to the manager's version with `apt-mark hold`, so run `apt-mark unhold wazuh-agent` before upgrading the manager.
 - Metasploitable intentionally has no agent, it's a frozen, deliberately vulnerable target. Monitored instead via a syslog relay through Kali.
 - A known upstream Wazuh bug causes the vulnerability-detector module's RocksDB feed to accumulate without cleanup, eventually filling the disk entirely, which took the dashboard down. Root cause, fix, and two real operational gotchas (the right way to stop wazuh-manager, and a `rm -rf` glob-expansion trap) are documented in [the incident writeup](../incidents/wazuh-disk-full.md) and [the fix runbook](../runbooks/fix-wazuh-disk-bloat.md). Likely to recur, worth checking periodically rather than waiting for a repeat.
 - The VM's disk has very little margin once the vulnerability feed regrows. A deliberate resize is worth considering alongside just watching for the bloat.

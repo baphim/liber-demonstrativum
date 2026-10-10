@@ -18,12 +18,12 @@ Built with `xcaddy` rather than stock Caddy, to bundle a DNS-01 plugin for the d
 
 | Subdomain | TLS method |
 |---|---|
-| `vaultwarden.baphim.xyz` | Real cert, Let's Encrypt via DNS-01 |
+| `vaultwarden.baphim.xyz` | Real cert, Let's Encrypt via DNS-01. Tailnet only since October 2026. |
 | `nextcloud.baphim.xyz` | Real cert, Let's Encrypt via DNS-01 |
 | `grafana.baphim.xyz` | Self-signed internal CA, intentionally LAN/tailnet-only |
 | `git.baphim.xyz` | Real cert, Let's Encrypt via DNS-01. Intentionally public, hosts a coursework repo shared with a professor. |
 
-The split isn't arbitrary: public-facing services get real publicly-trusted certs, LAN/tailnet-only ones use Caddy's self-signed internal CA. See [DNS-01 vs HTTP-01](../concepts/dns-01-vs-http-01.md) and [reverse proxy TLS termination](../concepts/reverse-proxy-tls-termination.md).
+The split isn't arbitrary: public-facing services get real publicly-trusted certs, and services that only need to be reachable inside the lab can use Caddy's self-signed internal CA. A real cert does not mean a service is public. Vaultwarden keeps its real cert after leaving the public internet, because DNS-01 never needed it to be reachable. See [DNS-01 vs HTTP-01](../concepts/dns-01-vs-http-01.md) and [reverse proxy TLS termination](../concepts/reverse-proxy-tls-termination.md).
 
 ## Configuration
 Uses a DNS-01 challenge plugin for the domain registrar's API, credentials set via systemd environment variables.

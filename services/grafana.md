@@ -14,7 +14,7 @@ tags: [service]
 | **Status** | Running |
 
 ## Access
-Proxied by [Caddy](caddy.md), served via Caddy's self-signed internal CA rather than a publicly-trusted cert, consistent with being LAN/tailnet-only rather than internet-facing like Vaultwarden and Nextcloud.
+Proxied by [Caddy](caddy.md), served via Caddy's self-signed internal CA rather than a publicly-trusted cert, consistent with being LAN/tailnet-only rather than internet-facing like Nextcloud.
 
 ## Dashboards
 - **Node Exporter Full**: a prebuilt community dashboard, visualizing the node_exporter scrapes from every host.

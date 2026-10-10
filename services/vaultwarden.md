@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[vaultwarden LXC](../machines/vaultwarden.md)"
+host: "[Infrastructure](../infrastructure.md)"
 tags: [service]
 ---
 
@@ -10,14 +10,16 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Self-hosted password manager (Bitwarden-compatible) |
-| **Host** | [vaultwarden LXC](../machines/vaultwarden.md) |
+| **Host** | [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Access
 | Field | Value |
 |-------|-------|
 | **URL** | `vaultwarden.baphim.xyz`, proxied by [Caddy](caddy.md) to `<lan-ip>:8080` |
-| **Port** | 8080 (backend). Deliberately internet-facing, confirmed by resolving off the LAN and tailnet directly. Served via a real TLS cert (Let's Encrypt via DNS-01), not a self-signed one. |
+| **Port** | 8080 (backend). Tailnet only. Local DNS resolves the name to the Caddy container's tailnet address, and there is no public DNS record or public proxy block. Still served with a real TLS cert (Let's Encrypt via DNS-01), which does not need the service to be reachable from the internet. |
+
+It was internet-facing through a VPS until October 2026. Every device I use it from is already on the tailnet, so the public route was removed. See [Take a service off the public internet](../runbooks/take-a-service-off-the-public-internet.md).
 
 ## Deployment
 - Built from source, not installed via package manager or Docker.
@@ -51,11 +53,13 @@ Full restore procedure, tested and verified: [Vaultwarden backup restore procedu
 ## Known Issues
 - Hardening pass complete: admin token set and hashed (not plaintext), new signups disabled, outbound mail configured so security emails actually go out, fail2ban installed and verified, 2FA enabled on the account.
 - Rust/Cargo must stay installed for future updates to be buildable. Removing it to save disk space creates a silent trap the next time an update is needed.
+- A device without Tailscale cannot reach Vaultwarden anywhere, including at home. The Bitwarden clients keep an offline vault cache, so passwords can still be read in a pinch.
 - No automated tracking of new releases yet. Updates have so far happened reactively, after noticing client-side errors from an outdated web vault build.
 
 ## Related Notes
-- [vaultwarden LXC](../machines/vaultwarden.md)
+- [Infrastructure](../infrastructure.md)
 - [Vaultwarden backup restore procedure](../runbooks/vaultwarden-backup-restore.md)
+- [Take a service off the public internet](../runbooks/take-a-service-off-the-public-internet.md)
 
 ## Tags
 #service

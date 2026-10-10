@@ -1,6 +1,6 @@
 # Infrastructure
 
-Everything runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs for each service.
+Everything in the homelab runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs for each service. The one exception is a Windows VM on my workstation, listed below the main table.
 
 | Name | Type | OS | Role |
 |---|---|---|---|
@@ -12,6 +12,7 @@ Everything runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs
 | nextcloud | LXC | Debian 12 | File storage |
 | prometheus | LXC | Debian 13 | Metrics collection |
 | grafana | LXC | Debian 13 | Dashboards |
+| rss | LXC | Debian 13 | [FreshRSS](services/freshrss.md), security news reader, tailnet access only |
 | wazuh-server | VM | Amazon Linux 2023 | SIEM / security monitoring |
 | kali | VM | Kali Linux | Pentesting, on-demand |
 | metasploitable | VM | Metasploitable | Deliberately vulnerable pentest target, isolated segment |
@@ -19,3 +20,12 @@ Everything runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs
 Kali and Metasploitable sit on a separate virtual bridge from everything else, routed so Metasploitable is reachable only from Kali, never from the rest of the LAN.
 
 See individual service pages for what runs on each host and how they're configured.
+
+## Workstation
+My daily workstation runs an Arch-based distro and hosts one VM through KVM/libvirt.
+
+| Name | Type | OS | Role |
+|---|---|---|---|
+| Windows 11 VM | KVM VM | Windows 11 Enterprise Evaluation | Windows-only apps and PowerShell practice, bridged to the LAN so it can reach Kali, Metasploitable and Wazuh |
+
+4 vCPU, 6GB RAM, 100GB sparse disk, UEFI with Secure Boot and an emulated TPM 2.0. The disk lives on its own btrfs subvolume with copy-on-write off, outside snapper. Planned: OpenSSH with key auth for PowerShell over SSH, a Wazuh agent, and a DHCP reservation. The evaluation lasts 90 days, so it gets rebuilt from the retail ISO afterward, with scripts kept outside the VM. Build steps: [Build a Windows 11 VM on KVM](runbooks/build-windows-11-vm-on-kvm.md).

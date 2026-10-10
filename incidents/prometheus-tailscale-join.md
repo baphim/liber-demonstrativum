@@ -24,6 +24,8 @@ Proxmox stores snapshot history in the *same* config file as the live config, as
 
 Side finding while reading through the snapshot history: an old snapshot's comment noted an unexpected error setting up a metrics target on another host months earlier. That's likely why that host still had no monitoring coverage, something broke during the original setup and was apparently never revisited, worth following up on separately. (It was, see [Install node_exporter](../runbooks/install-node-exporter.md).)
 
+The same bug hit again a few weeks later while building the [FreshRSS container](../runbooks/build-freshrss-in-lxc.md). I took a snapshot first, then appended the TUN lines, and they landed in the snapshot section. This time the diagnosis took one `cat` of the config file. The runbook now says to add the lines before any snapshot.
+
 A fourth, unrelated problem showed up once the device was finally present: DNS resolution failed entirely, the same recurring pattern seen in two earlier incidents on other hosts. This was the third time the same failure mode had hit a different host, which is what finally prompted tracking down the actual root cause rather than patching it again. See [Proxmox host DNS root cause](proxmox-dns-root-cause.md).
 
 ## Fix
