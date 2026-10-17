@@ -28,6 +28,7 @@ It was internet-facing through a VPS until October 2026. Every device I use it f
 - Database: sqlite.
 
 ## Configuration
+- Update steps: [Update Vaultwarden built from source](../runbooks/update-vaultwarden-from-source.md).
 - Rebuilding requires the Rust/Cargo toolchain on the host. It was removed during a storage cleanup at one point and had to be reinstalled before the next update could proceed, now tracked as a known dependency rather than a surprise.
 - A build needs the LXC's memory bumped to 4096MB (`cargo build --release` is memory-hungry).
 - **fail2ban**: a custom filter matches failed-login messages from the systemd journal (Vaultwarden logs to journald, no file redirect). Jail: 5 attempts in 600 seconds triggers a 1-hour ban. Verified against real historical failed-login attempts before going live.
@@ -54,12 +55,15 @@ Full restore procedure, tested and verified: [Vaultwarden backup restore procedu
 - Hardening pass complete: admin token set and hashed (not plaintext), new signups disabled, outbound mail configured so security emails actually go out, fail2ban installed and verified, 2FA enabled on the account.
 - Rust/Cargo must stay installed for future updates to be buildable. Removing it to save disk space creates a silent trap the next time an update is needed.
 - A device without Tailscale cannot reach Vaultwarden anywhere, including at home. The Bitwarden clients keep an offline vault cache, so passwords can still be read in a pinch.
+- Reachable only through [Caddy](caddy.md), so a Caddy outage takes it down for every client. That happened once when an `apt upgrade` broke Caddy, see [the incident](../incidents/caddy-apt-upgrade-removed-dns-module.md). Clients keep their offline vault cache, so passwords were still readable, but edits failed.
 - No automated tracking of new releases yet. Updates have so far happened reactively, after noticing client-side errors from an outdated web vault build.
 
 ## Related Notes
 - [Infrastructure](../infrastructure.md)
 - [Vaultwarden backup restore procedure](../runbooks/vaultwarden-backup-restore.md)
 - [Take a service off the public internet](../runbooks/take-a-service-off-the-public-internet.md)
+- [Update Vaultwarden built from source](../runbooks/update-vaultwarden-from-source.md)
+- [Caddy apt upgrade removed the DNS provider module](../incidents/caddy-apt-upgrade-removed-dns-module.md)
 
 ## Tags
 #service

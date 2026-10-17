@@ -38,6 +38,7 @@ See [Deploy a Wazuh manager from OVA](../runbooks/deploy-wazuh-ova.md) for the f
 - Depends on [Pi-hole](pi-hole.md) for local DNS resolution.
 - Depends on the tailnet for agents outside the LAN segment to reach the manager.
 - Agents deployed to every LXC by LAN IP, plus the workstation and Kali by tailnet IP.
+- The Kali Purple VM on the workstation is deliberately not enrolled. It is a sandbox with its own [Suricata](suricata.md) and [Zeek](zeek.md), and it is blocked from the tailnet, so it could not reach the manager anyway.
 
 ## Known Issues
 - Running on 2 vCPU against the documented recommendation of 4. No problems observed, but genuinely untested under real alert load.
