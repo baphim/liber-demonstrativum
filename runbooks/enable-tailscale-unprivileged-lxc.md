@@ -63,7 +63,11 @@ pct exec <vmid> -- tailscale ip -4
 - The `.conf` snapshot-append trap in Step 3 is a general Proxmox gotcha, not specific to Tailscale, any time an `echo >> /etc/pve/lxc/<vmid>.conf` looks like it didn't take effect on a container with snapshots, check the file structure before assuming the command itself failed.
 - Try the least invasive fix (`nesting=1`) before the more invasive one (`apparmor.profile: unconfined`), both may not be necessary.
 
+- Debian 12's systemd in an unprivileged container warns `You may need to enable nesting` at first start. Setting `nesting=1` when the container is created avoids it, and it is what the Vikunja build did from the start.
+- `tailscale serve` is a lighter way to give a tailnet-only service HTTPS than a reverse proxy entry plus a local DNS record. It needs HTTPS certificates enabled on the tailnet's DNS page. Used in [Deploy Vikunja in a Debian LXC](deploy-vikunja-in-a-debian-lxc.md).
+
 ## Related Notes
 - [Proxmox](../services/proxmox.md)
 - [Prometheus tailscale join](../incidents/prometheus-tailscale-join.md)
 - [Proxmox DNS root cause](../incidents/proxmox-dns-root-cause.md)
+- [Deploy Vikunja in a Debian LXC](deploy-vikunja-in-a-debian-lxc.md)

@@ -43,16 +43,23 @@ See [Deploy a Wazuh manager from OVA](../runbooks/deploy-wazuh-ova.md) for the f
 ## Known Issues
 - Running on 2 vCPU against the documented recommendation of 4. No problems observed, but genuinely untested under real alert load.
 - Email alerting isn't configured yet. Wazuh doesn't handle SMTP auth itself, so this needs a separate OS-level mail relay, parked mid-setup.
-- An agent must not be newer than the manager. The FreshRSS container's agent is pinned to the manager's version with `apt-mark hold`, so run `apt-mark unhold wazuh-agent` before upgrading the manager.
+- An agent must not be newer than the manager. The FreshRSS and Vikunja containers' agents are pinned to the manager's version with `apt-mark hold`, so run `apt-mark unhold wazuh-agent` before upgrading the manager.
 - Metasploitable intentionally has no agent, it's a frozen, deliberately vulnerable target. Monitored instead via a syslog relay through Kali.
 - A known upstream Wazuh bug causes the vulnerability-detector module's RocksDB feed to accumulate without cleanup, eventually filling the disk entirely, which took the dashboard down. Root cause, fix, and two real operational gotchas (the right way to stop wazuh-manager, and a `rm -rf` glob-expansion trap) are documented in [the incident writeup](../incidents/wazuh-disk-full.md) and [the fix runbook](../runbooks/fix-wazuh-disk-bloat.md). Likely to recur, worth checking periodically rather than waiting for a repeat.
 - The VM's disk has very little margin once the vulnerability feed regrows. A deliberate resize is worth considering alongside just watching for the bloat.
+
+- **Some default rules are noisy for this setup.** Rule 5712 (SSH brute force) fires at level 10 against a server with key-only auth, where guessing cannot succeed. Rule 510 (rootcheck trojan) gave a false positive on a legitimate mail client, multiplied by symlinked `/bin` and `/sbin` directories. Rule 533 (listening ports changed) fires on `tailscaled`'s temporary UDP ports. Planned fixes are a local rule to lower 5712 for that host, and filtering the ephemeral ports in the agent's netstat command instead of a rule, since a rule matching `tailscaled` would hide real port changes. See [the alert review](../incidents/wazuh-alert-review.md).
+- A local model can explain alerts, but its output has to be checked against the raw alert. See [Run Wazuh alert triage with a local model](../runbooks/run-wazuh-alert-triage.md).
 
 ## Related Notes
 - [Infrastructure](../infrastructure.md)
 - [Deploy a Wazuh manager from OVA](../runbooks/deploy-wazuh-ova.md)
 - [Fix Wazuh vulnerability-detector disk bloat](../runbooks/fix-wazuh-disk-bloat.md)
 - [Wazuh dashboard error, disk full, vulnerability detector bloat](../incidents/wazuh-disk-full.md)
+- [Wazuh alert review](../incidents/wazuh-alert-review.md)
+- [Run Wazuh alert triage with a local model](../runbooks/run-wazuh-alert-triage.md)
+- [Verify a rootcheck trojan alert](../runbooks/verify-a-rootcheck-trojan-alert.md)
+- [Check a VPS for SSH exposure](../runbooks/check-vps-ssh-exposure.md)
 
 ## Tags
 #service

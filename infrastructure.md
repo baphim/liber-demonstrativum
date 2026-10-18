@@ -1,6 +1,6 @@
 # Infrastructure
 
-Everything in the homelab runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs for each service. The exception is two VMs on my workstation, listed below the main table.
+Everything in the homelab runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs for each service. The exception is the workstation, which hosts two VMs and a local model server, listed below the main table.
 
 | Name | Type | OS | Role |
 |---|---|---|---|
@@ -12,6 +12,7 @@ Everything in the homelab runs on a single Proxmox host, hypervisor on bare meta
 | nextcloud | LXC | Debian 12 | File storage |
 | prometheus | LXC | Debian 13 | Metrics collection |
 | grafana | LXC | Debian 13 | Dashboards |
+| vikunja | LXC | Debian 12 | [Vikunja](services/vikunja.md), task manager, tailnet access only |
 | rss | LXC | Debian 13 | [FreshRSS](services/freshrss.md), security news reader, tailnet access only |
 | wazuh-server | VM | Amazon Linux 2023 | SIEM / security monitoring |
 | kali | VM | Kali Linux | Pentesting, on-demand |
@@ -33,3 +34,6 @@ Windows 11 VM: 4 vCPU, 6GB RAM, 100GB sparse disk, UEFI with Secure Boot and an 
 
 ### Kali Purple VM
 A second Kali, separate from the one on Proxmox. The Proxmox Kali already covers the attacker role, so this one is a local sandbox for the defensive tools. 4 vCPU, 8GB RAM, 80GB disk, UEFI, on libvirt's default NAT network with a DHCP reservation. It is deliberately not enrolled in Wazuh and not on the tailnet. [vm-lockdown](services/vm-lockdown.md) keeps it off the LAN and tailnet while leaving internet access, after I found that NAT alone did not (see [the incident](incidents/kali-purple-vm-lan-tailnet-exposure.md)). SSH is off by default and started on demand for `scp`, key login only. Related: [Set up key-only SSH to a libvirt VM](runbooks/set-up-key-only-ssh-to-a-libvirt-vm.md), [Take a baseline of a fresh VM](runbooks/take-a-vm-baseline.md).
+
+### Local models
+The workstation also runs [Ollama](services/ollama.md) on an RTX 3060 with 12 GB of VRAM, bound to localhost. It is used to explain [Wazuh](services/wazuh.md) alerts without sending logs off the machine. See [Local models](services/local-models.md) for what fits and how each model performed, and [Run Wazuh alert triage with a local model](runbooks/run-wazuh-alert-triage.md).
