@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "rss LXC"
 tags: [service]
 ---
 

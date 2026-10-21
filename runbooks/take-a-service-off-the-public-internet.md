@@ -58,7 +58,7 @@ A record pointing at a LAN IP resolves fine on cellular and then fails to connec
 I chose option 1. Everything that uses the service is already on the tailnet, and it is one record instead of a routing change. Revisit option 2 if anyone else ever needs access without Tailscale.
 
 ## Step 5: Test before cutting over
-MagicDNS was off tailnet-wide, so I did not assume the phone was asking the Pi-hole. Watch the query log while loading the page on a phone with Wi-Fi off and Tailscale on:
+MagicDNS was off tailnet-wide at the time (it is on now), so I did not assume the phone was asking the Pi-hole. Watch the query log while loading the page on a phone with Wi-Fi off and Tailscale on:
 ```
 tail -f /var/log/pihole/pihole.log | grep -i <service>
 ```

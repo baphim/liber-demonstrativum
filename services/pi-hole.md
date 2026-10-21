@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "pihole LXC"
 tags: [service]
 ---
 
@@ -10,7 +10,7 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Network-wide DNS and ad-blocking, also used for local DNS records for internal-only services |
-| **Host** | [Infrastructure](../infrastructure.md) |
+| **Host** | pihole LXC, see [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Dependencies

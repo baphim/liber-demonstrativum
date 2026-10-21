@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "workstation"
 tags: [service]
 ---
 
@@ -28,7 +28,7 @@ An nftables table, `inet vm_lockdown`, loaded by a oneshot systemd unit that run
 
 ## Known Issues
 - It applies to every VM on the `default` network, not just the Kali Purple VM. That is on purpose, so future VMs there are covered.
-- It matches the bridge by name, so a VM on any other libvirt network is not covered. The Windows 11 VM is bridged straight onto the LAN and is not covered either.
+- It matches the bridge by name, so a VM on any other libvirt network is not covered.
 - While it is stopped, a VM can reach everything the workstation can, including the tailnet. Snapshot first and keep those sessions short.
 - The VM can still resolve internal names through the host's DNS, but it cannot connect to anything they point to.
 - Enabling the distro's `nftables.service` would remove the table, because its default config starts with `flush ruleset`.

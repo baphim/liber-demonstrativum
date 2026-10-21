@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "prometheus LXC"
 tags: [service]
 ---
 
@@ -10,7 +10,7 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Metrics collection, feeding [Grafana](grafana.md)'s dashboards |
-| **Host** | [Infrastructure](../infrastructure.md) |
+| **Host** | prometheus LXC, see [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Configuration

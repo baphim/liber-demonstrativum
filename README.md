@@ -3,6 +3,8 @@
 A working Proxmox homelab, documented as part of an ongoing cybersecurity program. This is a curated subset of a larger private vault: service architecture, real incidents, runbooks built from actually hitting and fixing problems, and concept notes written while learning the underlying mechanisms. The lab covers self-hosted services, SIEM monitoring with Wazuh, network detection with Suricata and Zeek, and local LLMs used to explain security alerts.
 
 ## Structure
+The full list of pages is in the [index](index.md).
+
 - `infrastructure.md`, what's running and on what.
 - `services/`, one page per service, purpose, configuration, dependencies, known issues. Includes a reference page for the local models I have tested.
 - `incidents/`, real postmortems: what broke, root cause, the fix, and what I would do differently. Some are still open and say so.

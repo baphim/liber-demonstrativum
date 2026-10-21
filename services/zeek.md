@@ -1,6 +1,6 @@
 ---
 status: Stopped
-host: "[Infrastructure](../infrastructure.md)"
+host: "Kali Purple VM on the workstation"
 tags: [service]
 ---
 

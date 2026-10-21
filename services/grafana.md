@@ -1,6 +1,7 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "grafana LXC"
+reviewed: 2026-10-20
 tags: [service]
 ---
 
@@ -10,11 +11,11 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Dashboards, visualizing Prometheus data |
-| **Host** | [Infrastructure](../infrastructure.md) |
+| **Host** | grafana LXC, see [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Access
-Proxied by [Caddy](caddy.md), served via Caddy's self-signed internal CA rather than a publicly-trusted cert, consistent with being LAN/tailnet-only rather than internet-facing like Nextcloud.
+Proxied by [Caddy](caddy.md), served via Caddy's self-signed internal CA rather than a publicly-trusted cert, consistent with being LAN/tailnet-only. It was reachable through the VPS until October 2026. That route and its public DNS record are gone.
 
 ## Dashboards
 - **Node Exporter Full**: a prebuilt community dashboard, visualizing the node_exporter scrapes from every host.

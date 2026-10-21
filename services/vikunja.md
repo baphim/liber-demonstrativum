@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "vikunja LXC"
 tags: [service]
 ---
 
@@ -27,6 +27,7 @@ Native `.deb` package (v2.7.0) in an unprivileged Debian 12 LXC with `nesting=1`
 - Mailer not configured.
 - Wazuh agent installed and pinned to the manager's version with `apt-mark hold`.
 - Covered by the weekly vzdump backup job.
+- A systemd timer sends a morning digest of tasks due today and a one line overdue summary to my phone through [ntfy](ntfy.md). Steps: [Send a Vikunja digest to ntfy](../runbooks/send-a-vikunja-digest-to-ntfy.md).
 - Tasks were imported once from the old app's CSV backup, with a snapshot taken first and deleted afterward.
 
 ## Dependencies
@@ -39,12 +40,13 @@ Native `.deb` package (v2.7.0) in an unprivileged Debian 12 LXC with `nesting=1`
 - Subtask checkboxes did not survive the import and were re-added by hand.
 - Habit tracking, a focus timer, a calendar view and a watch app are not covered by Vikunja. Replacements are not chosen yet, so the old account stays for now.
 - After switching `publicurl` to the tailnet URL, logins from the LAN address stop working. The URL typed into the Android app has to match it exactly.
-- Planned: connect Claude Code to the Vikunja MCP server.
+- Claude Code is connected to the Vikunja MCP server.
 
 ## Related Notes
 - [Deploy Vikunja in a Debian LXC](../runbooks/deploy-vikunja-in-a-debian-lxc.md)
 - [Enable Tailscale in an unprivileged Proxmox LXC](../runbooks/enable-tailscale-unprivileged-lxc.md)
 - [Wazuh](wazuh.md)
+- [ntfy](ntfy.md)
 
 ## Tags
 #service

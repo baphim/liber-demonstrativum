@@ -1,6 +1,7 @@
 ---
 status: Running
 host: "Bare metal"
+reviewed: 2026-10-20
 tags: [service]
 ---
 
@@ -16,6 +17,8 @@ tags: [service]
 ## Configuration
 - Weekly backup job: zstd compression, snapshot mode, keeps the last 3 backups per guest. Targets every persistent LXC and the Wazuh VM, deliberately excludes the pentest targets, which are on-demand rather than persistent state worth preserving.
 - A separate checker script, on its own timer shortly after the backup job, reports backup success/failure to Prometheus by checking Proxmox's own task log rather than hooking into the backup job directly. Full detail in [Prometheus](prometheus.md).
+
+- The host is not on the tailnet (I removed it in October 2026). SSH is key-only, and I reach it through the workstation.
 
 ## Dependencies
 - Nothing upstream, this is the base layer everything else runs on.

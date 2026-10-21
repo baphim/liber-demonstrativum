@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "vaultwarden LXC"
 tags: [service]
 ---
 
@@ -10,7 +10,7 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Self-hosted password manager (Bitwarden-compatible) |
-| **Host** | [Infrastructure](../infrastructure.md) |
+| **Host** | vaultwarden LXC, see [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Access

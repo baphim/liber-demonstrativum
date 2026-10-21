@@ -1,6 +1,7 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "caddy LXC"
+reviewed: 2026-10-20
 tags: [service]
 ---
 
@@ -10,7 +11,7 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Internal reverse proxy. Routes subdomains of `baphim.xyz` to backend hosts and terminates TLS. |
-| **Host** | [Infrastructure](../infrastructure.md) |
+| **Host** | caddy LXC, see [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Deployment
@@ -19,7 +20,7 @@ Custom build rather than stock Caddy, to bundle a DNS-01 plugin for the domain r
 | Subdomain | TLS method |
 |---|---|
 | `vaultwarden.baphim.xyz` | Real cert, Let's Encrypt via DNS-01. Tailnet only since October 2026. |
-| `nextcloud.baphim.xyz` | Real cert, Let's Encrypt via DNS-01 |
+| `nextcloud.baphim.xyz` | Real cert, Let's Encrypt via DNS-01. Tailnet only since October 2026. |
 | `grafana.baphim.xyz` | Self-signed internal CA, intentionally LAN/tailnet-only |
 | `git.baphim.xyz` | Real cert, Let's Encrypt via DNS-01. Intentionally public, hosts a coursework repo shared with a professor. |
 

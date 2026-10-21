@@ -1,6 +1,6 @@
 ---
 status: Running
-host: "[Infrastructure](../infrastructure.md)"
+host: "gitea LXC"
 tags: [service]
 ---
 
@@ -10,7 +10,7 @@ tags: [service]
 | Field | Value |
 |-------|-------|
 | **Purpose** | Self-hosted git server, source for several private repos, mirrors out to GitHub as a backup |
-| **Host** | [Infrastructure](../infrastructure.md) |
+| **Host** | gitea LXC, see [Infrastructure](../infrastructure.md) |
 | **Status** | Running |
 
 ## Access
