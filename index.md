@@ -12,6 +12,7 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Pi-hole](services/pi-hole.md)
 - [Caddy](services/caddy.md)
 - [Tailscale](services/tailscale.md)
+- [QDevice](services/qdevice.md)
 
 ### Applications
 
@@ -42,6 +43,7 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 
 - [Caddy apt upgrade removed the DNS provider module](incidents/caddy-apt-upgrade-removed-dns-module.md)
 - [Caddy LXC out of disk space](incidents/caddy-disk-full.md)
+- [DNS outage when the first node went down](incidents/dns-outage-when-the-first-node-went-down.md)
 - [Kali Purple VM exposed to the LAN and tailnet](incidents/kali-purple-vm-lan-tailnet-exposure.md)
 - [Prometheus tailscale join, TUN device and lxc.conf snapshot bug](incidents/prometheus-tailscale-join.md)
 - [Proxmox host DNS root cause (tailscale accept-dns)](incidents/proxmox-dns-root-cause.md)
@@ -58,6 +60,10 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Deploy ntfy in a Debian LXC (tailnet only)](runbooks/deploy-ntfy-in-a-debian-lxc.md)
 - [Deploy a Wazuh manager from OVA](runbooks/deploy-wazuh-ova.md)
 - [Set up Ollama](runbooks/set-up-ollama.md)
+- [Join a second Proxmox node and add a QDevice](runbooks/join-a-second-proxmox-node-and-add-a-qdevice.md)
+- [Turn a worn SSD into LVM-thin storage](runbooks/turn-a-worn-ssd-into-lvm-thin-storage.md)
+- [Build a second Pi-hole and fail over to it](runbooks/build-a-second-pi-hole-and-fail-over.md)
+- [Set up DNS fail-safes on a Proxmox node](runbooks/set-up-dns-fail-safes-on-a-proxmox-node.md)
 
 ### Network and access
 
@@ -97,7 +103,11 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [NAT is not isolation](concepts/nat-is-not-isolation.md)
 - [Java RMI](concepts/java-rmi.md)
 - [Unsafe deserialization](concepts/unsafe-deserialization.md)
+- [Quorum](concepts/quorum.md)
 - [Reverse proxy TLS termination](concepts/reverse-proxy-tls-termination.md)
+- [SSD wear and SMART](concepts/ssd-wear-and-smart.md)
+- [Tailnet DNS override](concepts/tailnet-dns-override.md)
+- [Tailscale tags and grants](concepts/tailscale-tags-and-grants.md)
 - [The textfile collector pattern](concepts/textfile-collector.md)
 - [Unprivileged LXC confinement (cgroups vs AppArmor)](concepts/unprivileged-lxc-confinement.md)
 - [WAL mode in SQLite (and why backups use `.backup`)](concepts/wal-mode-sqlite.md)

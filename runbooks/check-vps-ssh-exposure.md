@@ -49,7 +49,7 @@ sudo journalctl -u ssh --since "1 hour ago" --no-pager | tail -n 40
 - Every `Accepted publickey` line is a user and address you recognize.
 - Failed attempts come from many unrelated addresses, target `root` or made-up names, and end in `[preauth]`.
 - Any `Accepted` line for another user or an unknown address is real. Stop and investigate before anything else.
-- A provider-level cloud firewall sits outside the VM, so check it in the provider's console too.
+- A provider-level cloud firewall sits outside the VM, so check it in the provider's console too. When I did this on my VPS in October 2026, the firewall list was empty, so the box was relying on nothing outside the VM. I created one that allows only the ports the VPS actually serves and leaves SSH on the default port closed. Before attaching it, I confirmed which address and port I really log in on, so I would not lock myself out. The provider's firewall is stateful, so replies to allowed traffic are fine. See [Join a second Proxmox node and add a QDevice](join-a-second-proxmox-node-and-add-a-qdevice.md) for why I was looking.
 - To drop a port safely: keep one session open, comment out the `Port` line, run `sudo sshd -t`, run `sudo systemctl reload ssh`, then test a fresh login on the remaining port from a second terminal before closing the first.
 
 ## Related Notes

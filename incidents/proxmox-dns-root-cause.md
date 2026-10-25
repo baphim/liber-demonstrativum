@@ -26,6 +26,9 @@ Proxmox LXCs inherit their default DNS config from the host at creation time. Wi
 
 This prevents the pattern for any new host created from here on. It doesn't retroactively fix any already-affected host, those get caught individually if they resurface.
 
+## Update, October 2026
+Step 2 left each Proxmox node with one resolver, the Pi-hole, and that Pi-hole ran on one of the nodes. When I shut that node down, DNS stopped for my workstation and phone, see [the outage](dns-outage-when-the-first-node-went-down.md). Both nodes now resolve through two Pi-holes and then a public resolver, with a short timeout, see [Set up DNS fail-safes on a Proxmox node](../runbooks/set-up-dns-fail-safes-on-a-proxmox-node.md). The nodes also went back on the tailnet, tagged, for the QDevice, so both of them join with `--accept-dns=false`. The general mechanism is in [Tailnet DNS override](../concepts/tailnet-dns-override.md).
+
 ## Related Notes
 - [Proxmox](../services/proxmox.md)
 - [Pi-hole](../services/pi-hole.md)

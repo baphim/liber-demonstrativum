@@ -1,11 +1,13 @@
 # Infrastructure
 
-Everything in the homelab runs on a single Proxmox host, hypervisor on bare metal, LXCs and VMs for each service. The exception is the workstation, which hosts a VM and a local model server, listed below the main table.
+Everything in the homelab runs on a two-node Proxmox cluster, hypervisor on bare metal, LXCs and VMs for each service. The exception is the workstation, which hosts a VM and a local model server, listed below the main table.
 
 | Name | Type | OS | Role |
 |---|---|---|---|
-| Proxmox host | Bare metal | Proxmox VE | Hypervisor |
+| Proxmox node 1 | Bare metal | Proxmox VE | Hypervisor, first cluster node, hosts most guests |
+| Proxmox node 2 | Bare metal | Proxmox VE | Second cluster node, added October 2026 on a used desktop, boots from an Optane module |
 | pihole | LXC | Ubuntu 22.04 | DNS / ad-blocking, local DNS records |
+| pihole2 | LXC | Debian 13 | Second DNS / ad-blocking instance on node 2, so DNS survives losing node 1 |
 | caddy | LXC | Ubuntu 22.04 | Reverse proxy, TLS termination |
 | vaultwarden | LXC | Ubuntu 22.04 | Password manager |
 | gitea | LXC | Debian 12 | Git hosting |
@@ -16,13 +18,15 @@ Everything in the homelab runs on a single Proxmox host, hypervisor on bare meta
 | rss | LXC | Debian 13 | [FreshRSS](services/freshrss.md), security news reader, tailnet access only |
 | ntfy | LXC | Debian | Self-hosted push notifications, tailnet access only |
 | wazuh-server | VM | Amazon Linux 2023 | SIEM / security monitoring |
-| VPS | Cloud VPS | Debian 12 | Public edge: a Caddy that forwards the one public route to the internal Caddy over the tailnet |
+| VPS | Cloud VPS | Debian 12 | Public edge: a Caddy that forwards the one public route to the internal Caddy over the tailnet. Also the [QDevice](services/qdevice.md), the cluster's third vote. |
 | kali | VM | Kali Linux | Pentesting, on-demand |
 | metasploitable | VM | Metasploitable | Deliberately vulnerable pentest target, isolated segment |
 
 Kali and Metasploitable sit on a separate virtual bridge from everything else, routed so Metasploitable is reachable only from Kali, never from the rest of the LAN.
 
-Most services are reachable only over a Tailscale tailnet. The Proxmox host itself is deliberately not on it.
+The two nodes form one cluster with a third vote from a QDevice on the VPS, so either node can be down without freezing the other. See [Quorum](concepts/quorum.md). Guests do not move between the nodes by themselves, since there is no shared storage.
+
+Most services are reachable only over a Tailscale tailnet. The two Proxmox nodes are on it too, but only to reach the QDevice. They are tagged, shielded, and allowed to reach that one port on the VPS and nothing else, see [Tailscale tags and grants](concepts/tailscale-tags-and-grants.md). They come off the tailnet again when a Raspberry Pi takes over as the QDevice.
 
 See the [index](index.md) for every page, and the individual service pages for what runs on each host and how they're configured.
 
