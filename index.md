@@ -14,6 +14,11 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Tailscale](services/tailscale.md)
 - [QDevice](services/qdevice.md)
 
+### CI and tools
+
+- [Gitea Actions runner](services/gitea-actions-runner.md)
+- [spyderbox](services/spyderbox.md)
+
 ### Applications
 
 - [Vaultwarden](services/vaultwarden.md)
@@ -50,6 +55,7 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Wazuh alert review: a local model flagged four alert groups](incidents/wazuh-alert-review.md)
 - [Wazuh dashboard error, disk full, vulnerability detector bloat](incidents/wazuh-disk-full.md)
 - [Wazuh vulnerability audit after the 4.14.9 upgrade](incidents/wazuh-vulnerability-audit.md)
+- [A DNS record pointed a public name at the wrong backend](incidents/gitea-unreachable-from-the-lan.md)
 
 ## Runbooks
 
@@ -64,6 +70,8 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Turn a worn SSD into LVM-thin storage](runbooks/turn-a-worn-ssd-into-lvm-thin-storage.md)
 - [Build a second Pi-hole and fail over to it](runbooks/build-a-second-pi-hole-and-fail-over.md)
 - [Set up DNS fail-safes on a Proxmox node](runbooks/set-up-dns-fail-safes-on-a-proxmox-node.md)
+- [Deploy a Gitea Actions runner in a Debian LXC](runbooks/deploy-a-gitea-actions-runner.md)
+- [Set up spyderbox (a remote IDE desktop in an LXC)](runbooks/set-up-spyderbox.md)
 
 ### Network and access
 
@@ -86,6 +94,7 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Add a local Suricata rule](runbooks/add-a-local-suricata-rule.md)
 - [Capture traffic with Zeek in a podman container](runbooks/capture-traffic-with-zeek-in-podman.md)
 - [Take a baseline of a fresh VM](runbooks/take-a-vm-baseline.md)
+- [Sync clocks across the lab with chrony and timesyncd](runbooks/sync-clocks-with-chrony-and-timesyncd.md)
 
 ### Update, back up and repair
 
@@ -93,6 +102,7 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [Update Vaultwarden built from source](runbooks/update-vaultwarden-from-source.md)
 - [Vaultwarden backup restore procedure](runbooks/vaultwarden-backup-restore.md)
 - [Fix an apt repo failing on a SHA1 key signature](runbooks/fix-apt-repo-sha1-key-error.md)
+- [Decommission an LXC](runbooks/decommission-an-lxc.md)
 
 ## Concepts
 
@@ -101,6 +111,7 @@ Start with [Infrastructure](infrastructure.md) for what is running and on what.
 - [LSM-trees (RocksDB)](concepts/lsm-trees-rocksdb.md)
 - [Models, agents and weights](concepts/models-agents-and-weights.md)
 - [NAT is not isolation](concepts/nat-is-not-isolation.md)
+- [Proxmox firewall and tailnet traffic](concepts/proxmox-firewall-and-tailnet-traffic.md)
 - [Java RMI](concepts/java-rmi.md)
 - [Unsafe deserialization](concepts/unsafe-deserialization.md)
 - [Quorum](concepts/quorum.md)

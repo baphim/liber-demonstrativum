@@ -17,6 +17,8 @@ Everything in the homelab runs on a two-node Proxmox cluster, hypervisor on bare
 | vikunja | LXC | Debian 12 | [Vikunja](services/vikunja.md), task manager, tailnet access only |
 | rss | LXC | Debian 13 | [FreshRSS](services/freshrss.md), security news reader, tailnet access only |
 | ntfy | LXC | Debian | Self-hosted push notifications, tailnet access only |
+| gitea-runner | LXC | Debian 13 | [Gitea Actions runner](services/gitea-actions-runner.md), CI for one of my own projects |
+| spyderbox | LXC | Debian 13 | [spyderbox](services/spyderbox.md), remote Spyder desktop for coursework, tailnet access only |
 | wazuh-server | VM | Amazon Linux 2023 | SIEM / security monitoring |
 | VPS | Cloud VPS | Debian 12 | Public edge: a Caddy that forwards the one public route to the internal Caddy over the tailnet. Also the [QDevice](services/qdevice.md), the cluster's third vote. |
 | kali | VM | Kali Linux | Pentesting, on-demand |

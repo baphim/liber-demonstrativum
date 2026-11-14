@@ -25,6 +25,7 @@ One repo is intentionally public: coursework shared with a university instructor
 - Depends on [Pi-hole](pi-hole.md) for DNS resolution, has broken once when that pointed elsewhere, see Known Issues.
 - Depends on GitHub being reachable for the outbound mirror push.
 - Reachable through [Caddy](caddy.md).
+- A dedicated [Gitea Actions runner](gitea-actions-runner.md) picks up CI jobs for one of my own projects; Gitea itself doesn't run any build steps.
 
 ## Known Issues
 - The public coursework repo briefly served a self-signed certificate rather than a publicly-trusted one, since it was originally set up assuming LAN/tailnet-only access. Caught and fixed, switched to a real cert matching the other public-facing services, confirmed working from outside the network.
@@ -32,8 +33,10 @@ One repo is intentionally public: coursework shared with a university instructor
 
 ## Related Notes
 - [Infrastructure](../infrastructure.md)
+- [Gitea Actions runner](gitea-actions-runner.md)
 - [Pi-hole](pi-hole.md)
 - [Proxmox host DNS root cause](../incidents/proxmox-dns-root-cause.md)
+- [A DNS record pointed a public name at the wrong backend](../incidents/gitea-unreachable-from-the-lan.md)
 
 ## Tags
 #service
