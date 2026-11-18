@@ -16,7 +16,7 @@ apt-get install -y prometheus-node-exporter prometheus-node-exporter-collectors
 ```
 The second package provides the textfile collector scripts, useful if this host will ever write custom metrics. See [the textfile collector pattern](../concepts/textfile-collector.md).
 
-**Gotcha**: the installed service is named `prometheus-node-exporter`, not `node_exporter`, and the running process shows as `prometheus-node` in `ps` output due to Linux's 15-character `comm` field truncation. Searching for `node_exporter` by name will come back empty even though it's installed and running correctly. Use the real service name.
+Gotcha: the installed service is named `prometheus-node-exporter`, not `node_exporter`, and the running process shows as `prometheus-node` in `ps` output due to Linux's 15-character `comm` field truncation. Searching for `node_exporter` by name will come back empty even though it's installed and running correctly. Use the real service name.
 
 On other distros (Amazon Linux, RHEL-family, anything without the package), check first:
 ```

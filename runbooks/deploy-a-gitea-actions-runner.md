@@ -53,7 +53,7 @@ apt update
 apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 docker run --rm hello-world
 ```
-> **Gotcha:** if `apt update` returns a 404 for the new repo, check the URI line for a typo like `linux.debian` instead of `linux/debian`. Easy to introduce and easy to miss on a read-through.
+> Gotcha: if `apt update` returns a 404 for the new repo, check the URI line for a typo like `linux.debian` instead of `linux/debian`. Easy to introduce and easy to miss on a read-through.
 
 ## Step 4: Get a registration token
 In Gitea, on the repo: Settings, Actions, Runners, create a new runner. A repo-level runner is the tightest scope available; an org- or instance-level one is for later if more than one repo needs CI.

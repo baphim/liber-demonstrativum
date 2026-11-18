@@ -9,9 +9,9 @@ tags: [reference]
 Every model pulled into [Ollama](ollama.md) gets an entry here, with its size, what it measured on this card, and what I use it for. The GPU is an RTX 3060 with 12 GB of VRAM.
 
 ## How to read the numbers
-- **File size** is the download size of the default tag, which is 4-bit weights unless the tag says otherwise.
-- **Fit** assumes about 11 GB usable, since the desktop takes some. File size plus roughly 1 GB for context has to stay under that. Anything larger spills into system RAM and slows to a crawl.
-- **Tokens per second** comes from a small benchmark script that sends one prompt and reads the eval rate. The 14B models all land near 34 because the card is limited by memory bandwidth, which scales with file size. Speed does not separate them.
+- File size is the download size of the default tag, which is 4-bit weights unless the tag says otherwise.
+- Fit assumes about 11 GB usable, since the desktop takes some. File size plus roughly 1 GB for context has to stay under that. Anything larger spills into system RAM and slows to a crawl.
+- Tokens per second comes from a small benchmark script that sends one prompt and reads the eval rate. The 14B models all land near 34 because the card is limited by memory bandwidth, which scales with file size. Speed does not separate them.
 
 ## Pulled
 | Model | Parameters | File size | Tokens/s | Use for |

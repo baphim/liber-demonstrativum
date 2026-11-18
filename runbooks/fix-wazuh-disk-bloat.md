@@ -17,7 +17,7 @@ du -h -d 2 /var/ossec/queue 2>/dev/null | sort -rh | head -5
 If `/var/ossec/queue/vd/feed` and `/var/ossec/queue/vd_updater/tmp` are the large entries, this is the same bug.
 
 ## Step 1: Stop wazuh-manager the right way
-**Do not use `systemctl stop wazuh-manager`.** Wazuh manages its own daemons via `wazuh-control`, not through reliable systemd process tracking. `systemctl stop` can report success while the real daemons keep running underneath. Use Wazuh's own tool:
+Do not use `systemctl stop wazuh-manager`. Wazuh manages its own daemons via `wazuh-control`, not through reliable systemd process tracking. `systemctl stop` can report success while the real daemons keep running underneath. Use Wazuh's own tool:
 ```
 sudo /var/ossec/bin/wazuh-control stop
 ```
@@ -34,12 +34,12 @@ sudo rm -f /var/ossec/var/start-script-lock
 ```
 
 ## Step 2: Clear the bloated directories, correctly
-These are regenerable caches (the vulnerability feed re-downloads on next start), safe to clear. **But use the right form of the command**:
+These are regenerable caches (the vulnerability feed re-downloads on next start), safe to clear. But use the right form of the command:
 ```
 sudo bash -c 'rm -rf /var/ossec/queue/vd_updater/tmp/*'
 sudo bash -c 'rm -rf /var/ossec/queue/vd/feed/*'
 ```
-**Do not use `sudo rm -rf /path/*` directly.** The `*` glob expands in the *calling shell*, before `sudo` takes effect. If the calling user lacks read access into that directory (likely, these are root/`wazuh`-group only), the glob silently expands to nothing, and `rm -f -- '*'` does nothing while producing no error. This has already happened once, nothing was actually deleted, despite the command appearing to run cleanly. Wrapping the whole glob inside `sudo bash -c '...'` forces the expansion to happen with root's permissions instead.
+Do not use `sudo rm -rf /path/*` directly. The `*` glob expands in the *calling shell*, before `sudo` takes effect. If the calling user lacks read access into that directory (likely, these are root/`wazuh`-group only), the glob silently expands to nothing, and `rm -f -- '*'` does nothing while producing no error. This has already happened once, nothing was actually deleted, despite the command appearing to run cleanly. Wrapping the whole glob inside `sudo bash -c '...'` forces the expansion to happen with root's permissions instead.
 
 ## Step 3: Verify before restarting
 ```

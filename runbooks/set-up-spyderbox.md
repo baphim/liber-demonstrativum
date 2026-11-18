@@ -21,7 +21,7 @@ pct create <ctid> local:vztmpl/<debian-template>.tar.zst \
   --nameserver <dns> \
   --onboot 1
 ```
-> **Gotcha:** fill in the gateway at creation time. A missing gateway doesn't fail the container create, it just surfaces later as `Network is unreachable` the first time something needs outbound access, which looks unrelated to the real cause.
+> Gotcha: fill in the gateway at creation time. A missing gateway doesn't fail the container create, it just surfaces later as `Network is unreachable` the first time something needs outbound access, which looks unrelated to the real cause.
 
 Add TUN passthrough for Tailscale to the container's config, then start it:
 ```

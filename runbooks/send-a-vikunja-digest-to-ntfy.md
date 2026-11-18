@@ -25,9 +25,9 @@ It should return 200.
 
 The task list takes `filter`, `filter_timezone`, `sort_by`, `order_by` and `per_page`. Date math uses `now`, `now/d` (start of today) and `now+7d`. With `filter_timezone` set, "today" starts at local midnight. The saved filters in the web UI cannot pass that parameter, so they use the server timezone.
 
-> **Gotcha:** I pasted a multi-line `curl` once and got `{"code":11,"message":"missing, malformed, expired or otherwise invalid token provided"}`. The same call as a single line worked. I never confirmed what broke.
+> Gotcha: I pasted a multi-line `curl` once and got `{"code":11,"message":"missing, malformed, expired or otherwise invalid token provided"}`. The same call as a single line worked. I never confirmed what broke.
 
-> **Gotcha:** A task due at exactly 00:00 did not match `due_date >= now/d`. The same task moved to 23:59 did. Imported tasks with date-only due dates sit at midnight, so the script uses a lower bound of `now/d-30s`. Midnight tasks then match whichever way the boundary behaves, and overdue uses the same cutoff so no task shows up in both lists.
+> Gotcha: A task due at exactly 00:00 did not match `due_date >= now/d`. The same task moved to 23:59 did. Imported tasks with date-only due dates sit at midnight, so the script uses a lower bound of `now/d-30s`. Midnight tasks then match whichever way the boundary behaves, and overdue uses the same cutoff so no task shows up in both lists.
 
 ## Step 3: Secrets file
 Put the two tokens in a root-only file as plain `KEY=value` lines, for systemd's `EnvironmentFile`:
@@ -39,7 +39,7 @@ nano /etc/vikunja-digest.env
 VIKUNJA_TOKEN=<vikunja-token>
 NTFY_TOKEN=<ntfy-bot-token>
 ```
-> **Gotcha:** Do not `source` this file in a shell. Sourcing evaluates it as shell code. One of my lines had no `=` sign, so bash tried to run it as a command and printed the token in the "command not found" error. I never confirmed how the line ended up that way. I did not rotate that token, because it is read-only and the instance is only reachable over the tailnet. I cleared the scrollback afterward.
+> Gotcha: Do not `source` this file in a shell. Sourcing evaluates it as shell code. One of my lines had no `=` sign, so bash tried to run it as a command and printed the token in the "command not found" error. I never confirmed how the line ended up that way. I did not rotate that token, because it is read-only and the instance is only reachable over the tailnet. I cleared the scrollback afterward.
 
 This checks the structure without printing any values:
 ```

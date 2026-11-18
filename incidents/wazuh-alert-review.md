@@ -14,10 +14,10 @@ I built a script that pulls recent alerts from the Wazuh server and has a local 
 
 ## Investigation
 1. The script flagged four groups at level 7 or higher: rule 5712 (SSH brute force) on the VPS, rule 510 (rootcheck, trojaned `/bin/mail`) on the workstation, and rule 533 (listening ports changed) on the VPS and on Kali. The model's explanations were alarmist. It told me to isolate the workstation, which the evidence did not support.
-2. **Rule 510.** I grepped `alerts.json` on the Wazuh server for the flagged paths. It listed `/bin/mail`, `/sbin/mail`, `/usr/bin/mail` and `/usr/sbin/mail`. `ls -ld /bin /sbin /usr/sbin` showed all three directories are symlinks into `/usr/bin`, so it was one binary scanned four times. `pacman -Qo` showed it belongs to `s-nail`, and `pacman -Qkk s-nail` reported 0 altered files out of 16. Nothing required the package.
-3. **Rule 5712.** `sshd -T` on the VPS showed root login and password login both off. My first `journalctl | grep Accepted` returned nothing because my user is not in the `adm` or `systemd-journal` groups. Rerun with `sudo`, it showed one `Accepted publickey` line, which was me. The grep also matched `PubkeyAcceptedAlgorithms` on an unrelated line, a client offering a signature type the server rejects. `ss -tulpn` showed sshd listening on two ports. My session was on the non-default one, and a scanner was holding a connection open on the default one.
-4. **Rule 533 on the VPS.** I diffed `full_log` against `previous_output` for the four alerts with a short Python snippet. Each one was `tailscaled` opening two extra UDP listeners on high ports and closing them about six minutes later.
-5. **Rule 533 on Kali.** Not checked yet. The sample showed `charon` and `rsyslogd` listening, which I did not expect on a stock Kali.
+2. Rule 510. I grepped `alerts.json` on the Wazuh server for the flagged paths. It listed `/bin/mail`, `/sbin/mail`, `/usr/bin/mail` and `/usr/sbin/mail`. `ls -ld /bin /sbin /usr/sbin` showed all three directories are symlinks into `/usr/bin`, so it was one binary scanned four times. `pacman -Qo` showed it belongs to `s-nail`, and `pacman -Qkk s-nail` reported 0 altered files out of 16. Nothing required the package.
+3. Rule 5712. `sshd -T` on the VPS showed root login and password login both off. My first `journalctl | grep Accepted` returned nothing because my user is not in the `adm` or `systemd-journal` groups. Rerun with `sudo`, it showed one `Accepted publickey` line, which was me. The grep also matched `PubkeyAcceptedAlgorithms` on an unrelated line, a client offering a signature type the server rejects. `ss -tulpn` showed sshd listening on two ports. My session was on the non-default one, and a scanner was holding a connection open on the default one.
+4. Rule 533 on the VPS. I diffed `full_log` against `previous_output` for the four alerts with a short Python snippet. Each one was `tailscaled` opening two extra UDP listeners on high ports and closing them about six minutes later.
+5. Rule 533 on Kali. Not checked yet. The sample showed `charon` and `rsyslogd` listening, which I did not expect on a stock Kali.
 
 Problems getting the script running:
 - `ssh` to the Wazuh server asked for a password because my key has a custom name and ssh only offers default key names. I already had a `Host` entry in `~/.ssh/config` pointing at the key, so the fix was using the alias.
@@ -25,10 +25,10 @@ Problems getting the script running:
 
 ## Root Cause
 There was no single cause. Each alert had its own explanation:
-- **Rule 510:** false positive. Rootcheck matches strings that appear inside a legitimate mail client, and the symlinks made it fire four times.
-- **Rule 5712:** internet background noise against a server with key-only auth, so none of it can succeed.
-- **Rule 533 on the VPS:** normal `tailscaled` behavior.
-- **Rule 533 on Kali:** unknown.
+- Rule 510: false positive. Rootcheck matches strings that appear inside a legitimate mail client, and the symlinks made it fire four times.
+- Rule 5712: internet background noise against a server with key-only auth, so none of it can succeed.
+- Rule 533 on the VPS: normal `tailscaled` behavior.
+- Rule 533 on Kali: unknown.
 
 The model made two of these sound worse than they were. The 200-character alert sample hid what changed in the ports alert, so both models I tried blamed the reverse proxy. The input was the weak point, not the model, see [Local models](../services/local-models.md).
 

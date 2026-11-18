@@ -40,7 +40,7 @@ It never asked about the interface, the web interface or privacy mode. As far as
 ## Step 4: Import the first Pi-hole's settings, then set the password
 In the first Pi-hole, export from Settings, Teleporter. Import everything on the new one. Check that `dns.listeningMode` and the upstreams match, and that both answer for a local record.
 
-**Do not set a password before the import.** I ran `pihole setpassword` first, and the import replaced it with the first Pi-hole's password. Neither the password I set nor the installer's logged me in afterward, which is the open problem below. I do not know that the two are connected.
+Do not set a password before the import. I ran `pihole setpassword` first, and the import replaced it with the first Pi-hole's password. Neither the password I set nor the installer's logged me in afterward, which is the open problem below. I do not know that the two are connected.
 
 ## Step 5: Join the tailnet
 ```

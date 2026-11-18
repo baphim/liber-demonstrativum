@@ -49,7 +49,7 @@ sudo systemctl status wazuh-dashboard
 ```
 
 ## Step 5: SSH key auth (FIPS gotcha)
-The OVA's AL2023 base ships in **FIPS mode**, which disallows Ed25519 keys. If `ssh-copy-id` with an existing Ed25519 key results in endless password prompts despite the key being present, this is why. Generate an RSA key instead:
+The OVA's AL2023 base ships in FIPS mode, which disallows Ed25519 keys. If `ssh-copy-id` with an existing Ed25519 key results in endless password prompts despite the key being present, this is why. Generate an RSA key instead:
 ```
 ssh-keygen -t rsa -b 4096 -C "<purpose>" -f ~/.ssh/id_rsa_wazuh
 ssh-copy-id -i ~/.ssh/id_rsa_wazuh.pub wazuh-user@<vm-ip>

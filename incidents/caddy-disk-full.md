@@ -9,7 +9,7 @@ tags:
 # Caddy LXC out of disk space
 
 ## What Happened
-Logging into the Caddy LXC surfaced an `apt_pkg.Error: E:Write error - write (28: No space left on device)` traceback from Ubuntu's release-upgrade checker. Unrelated to the task at hand, just surfaced while working on something else.
+Logging into the Caddy LXC surfaced an `apt_pkg.Error: E:Write error, write (28: No space left on device)` traceback from Ubuntu's release-upgrade checker. Unrelated to the task at hand, just surfaced while working on something else.
 
 ## Investigation
 - `df -h /` confirmed the LXC's disk was at 100% capacity.

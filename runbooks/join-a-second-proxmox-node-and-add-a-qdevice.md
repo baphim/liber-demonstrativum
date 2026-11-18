@@ -56,14 +56,14 @@ pvecm add <existing-node-address>
 My first `pvecm add` failed with `invalid corosync.conf, no nodes found`, because I had never run `pvecm create`. Nothing was damaged. Then `pvecm status` and `pvecm nodes` on either node should show both nodes and `Quorate`.
 
 ## Step 5: Fix SSH and storage
-**SSH between nodes.** `ssh <other-node>` hung, then failed with `Host key verification failed`, then the other side could not resolve the first node's name. Neither node had the other in `/etc/hosts`. The fix:
+SSH between nodes. `ssh <other-node>` hung, then failed with `Host key verification failed`, then the other side could not resolve the first node's name. Neither node had the other in `/etc/hosts`. The fix:
 1. Add each node's name and address to `/etc/hosts` on the other.
 2. `pvecm updatecerts` on both.
 3. Run an interactive `ssh` in each direction, check the fingerprint and accept it.
 
 I kept losing track of which commands ran on which node. I now write the node name in front of every command in my notes.
 
-**Storage.** The cluster shares `/etc/pve/storage.cfg`, so the first node's storages showed up on the new node, where they do not exist. Restrict each one:
+Storage. The cluster shares `/etc/pve/storage.cfg`, so the first node's storages showed up on the new node, where they do not exist. Restrict each one:
 ```
 pvesm set <storage> --nodes <first-node>
 ```

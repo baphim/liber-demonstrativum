@@ -111,7 +111,7 @@ sudo /var/ossec/integrations/custom-ntfy /tmp/test-alert.json "" https://ntfy.<t
 rm /tmp/test-alert.json
 ```
 
-> **Gotcha:** My first hand test failed with `ssl.SSLCertVerificationError: certificate verify failed: unable to get local issuer certificate`. System `curl` worked because it uses the OS cert store, but Wazuh's bundled Python has its own OpenSSL setup that does not know where the system CAs live. The fix is to point the script at the system CA bundle (the `CA_FILE` and `ssl.create_default_context(cafile=...)` lines above), not to turn verification off.
+> Gotcha: My first hand test failed with `ssl.SSLCertVerificationError: certificate verify failed: unable to get local issuer certificate`. System `curl` worked because it uses the OS cert store, but Wazuh's bundled Python has its own OpenSSL setup that does not know where the system CAs live. The fix is to point the script at the system CA bundle (the `CA_FILE` and `ssl.create_default_context(cafile=...)` lines above), not to turn verification off.
 
 ## Step 5: Wire it into ossec.conf
 Back up first:
@@ -129,7 +129,7 @@ Add this at the top level of `<ossec_config>`, as a sibling of `<global>` and `<
 ```
 `<name>` has to match the wrapper filename exactly, and `json` is required because the script parses JSON. Level 10 is a starting threshold.
 
-> **Gotcha:** When I pasted the block for a sanity check before saving, it had two typos. I had typed `?` instead of `>` on the `<name>` line, and the tailnet hostname had an extra dot, which would have failed DNS without an obvious error.
+> Gotcha: When I pasted the block for a sanity check before saving, it had two typos. I had typed `?` instead of `>` on the `<name>` line, and the tailnet hostname had an extra dot, which would have failed DNS without an obvious error.
 
 Validate, restart and confirm:
 ```
@@ -147,7 +147,7 @@ for i in $(seq 1 10); do ssh -o BatchMode=yes -o ConnectTimeout=5 nosuchuser@<mo
 ```
 A real alert should travel the whole chain: agent, manager, rule match, integration script, ntfy, phone.
 
-> **Gotcha:** I planned to use the Vikunja container as the target and wrote a to-do that its agent was missing, because it did not show in the dashboard yet. The agent was installed and had just not appeared, so that to-do was wrong. I got my alert by brute forcing the Caddy host instead.
+> Gotcha: I planned to use the Vikunja container as the target and wrote a to-do that its agent was missing, because it did not show in the dashboard yet. The agent was installed and had just not appeared, so that to-do was wrong. I got my alert by brute forcing the Caddy host instead.
 
 ## Step 7: Look at the alert volume
 ```

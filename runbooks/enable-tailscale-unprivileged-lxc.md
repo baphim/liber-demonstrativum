@@ -30,7 +30,7 @@ lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
 lxc.apparmor.profile: unconfined
 ```
 
-**Critical gotcha**: Proxmox stores snapshot history in the *same* `.conf` file as the live config, as `[bracket-named]` sections appended below it. A blind `echo "..." >> /etc/pve/lxc/<vmid>.conf` appends to the *end of the file*, which lands inside the last snapshot section rather than the live config if the container has any snapshots. Proxmox then reads those lines as snapshot metadata, not active config, and they silently have no effect. **Always check the file's structure first**:
+Critical gotcha: Proxmox stores snapshot history in the *same* `.conf` file as the live config, as `[bracket-named]` sections appended below it. A blind `echo "..." >> /etc/pve/lxc/<vmid>.conf` appends to the *end of the file*, which lands inside the last snapshot section rather than the live config if the container has any snapshots. Proxmox then reads those lines as snapshot metadata, not active config, and they silently have no effect. Always check the file's structure first:
 ```
 cat /etc/pve/lxc/<vmid>.conf
 ```
@@ -52,7 +52,7 @@ pct exec <vmid> -- tailscale up
 ```
 This prints a login URL, open it in a browser to approve the device.
 
-**If `curl` fails to resolve `tailscale.com`**: check `/etc/resolv.conf` inside the container. This lab had a recurring pattern of new LXCs inheriting the wrong DNS server at creation time, root cause and fix documented in [the Proxmox DNS incident](../incidents/proxmox-dns-root-cause.md).
+If `curl` fails to resolve `tailscale.com`: check `/etc/resolv.conf` inside the container. This lab had a recurring pattern of new LXCs inheriting the wrong DNS server at creation time, root cause and fix documented in [the Proxmox DNS incident](../incidents/proxmox-dns-root-cause.md).
 
 ## Step 6: Get the tailnet IP for documentation
 ```

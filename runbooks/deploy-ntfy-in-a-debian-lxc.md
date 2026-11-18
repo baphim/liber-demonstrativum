@@ -62,7 +62,7 @@ Create the admin user as the `ntfy` account:
 ```
 runuser -u ntfy -- ntfy user add --role=admin <admin-user>
 ```
-> **Gotcha:** Running `ntfy user add` as root can leave the user database owned by root, and then the service may not be able to write to it.
+> Gotcha: Running `ntfy user add` as root can leave the user database owned by root, and then the service may not be able to write to it.
 
 Test both sides:
 ```
@@ -82,12 +82,12 @@ curl -i https://ntfy.<tailnet>.ts.net/v1/health
 ```
 It should return 200 with `{"healthy":true,"role":"active"}`.
 
-> **Gotcha:** My first health check failed with `curl: (77) error adding trust anchors from file`, pointing at a build directory. A conda `base` environment was active in my shell, and its curl has a stale CA path. Calling `/usr/bin/curl` directly worked. I did not fix the conda curl.
+> Gotcha: My first health check failed with `curl: (77) error adding trust anchors from file`, pointing at a build directory. A conda `base` environment was active in my shell, and its curl has a stale CA path. Calling `/usr/bin/curl` directly worked. I did not fix the conda curl.
 
 ## Step 6: Phone
 Connect Tailscale on the phone, then subscribe in the ntfy app. Use your tailnet URL as the server, your admin login, and a topic name. Publish a test from another device. Lock the phone for a couple of minutes and send a second one, to check it arrives while the phone sleeps.
 
-> **Gotcha:** With a self-hosted server on Android there is no Firebase push. The app keeps its own connection open, so Tailscale has to stay on and the ntfy app's battery setting has to be unrestricted. `upstream-base-url` in the ntfy config is for iOS only.
+> Gotcha: With a self-hosted server on Android there is no Firebase push. The app keeps its own connection open, so Tailscale has to stay on and the ntfy app's battery setting has to be unrestricted. `upstream-base-url` in the ntfy config is for iOS only.
 
 ## Step 7: One write-only bot user per sender
 ```

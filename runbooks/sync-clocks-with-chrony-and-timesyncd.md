@@ -39,7 +39,7 @@ On a client already running chrony, with `prefer` so it favors the local server 
 echo 'server <local-server-ip> iburst prefer' > /etc/chrony/conf.d/local-server.conf
 systemctl restart chrony
 ```
-> **Gotcha:** some distributions' chrony packages refuse a bare service restart after a config change, if a startup script creates a symlink that a restart's own setup step then tries to recreate and fails on. If a restart leaves the service down, check its status for a failing `ExecStartPre` line, remove the stale symlink it's complaining about, and start (not restart) the service. For routine config changes afterward, reload sources instead of restarting.
+> Gotcha: some distributions' chrony packages refuse a bare service restart after a config change, if a startup script creates a symlink that a restart's own setup step then tries to recreate and fails on. If a restart leaves the service down, check its status for a failing `ExecStartPre` line, remove the stale symlink it's complaining about, and start (not restart) the service. For routine config changes afterward, reload sources instead of restarting.
 
 After a short wait, `chronyc sources -v` should show the local server as the selected source, with public pools listed as available backups.
 
@@ -54,7 +54,7 @@ CONF
 systemctl restart systemd-timesyncd
 timedatectl timesync-status
 ```
-> **Gotcha:** the stratum shown in `timesync-status` is the server's stratum, not the client's own. A client one hop below a stratum-2 server will itself show stratum 2 in that status output, not 3.
+> Gotcha: the stratum shown in `timesync-status` is the server's stratum, not the client's own. A client one hop below a stratum-2 server will itself show stratum 2 in that status output, not 3.
 
 ## Step 4: Containers that share the host's kernel
 A container that shares its host's kernel clock (an LXC, for instance) has nothing to configure and no client to install. Confirm it's actually on the same clock as the host with a direct time check rather than assuming:
@@ -77,7 +77,7 @@ w32tm /config /manualpeerlist:"<local-server-ip>" /syncfromflags:manual /update
 w32tm /resync
 w32tm /query /status
 ```
-> **Gotcha:** if the Windows Time service isn't already running, `w32tm /config` silently has nothing to apply. Start the service first and check `/query /status` afterward to confirm it actually took.
+> Gotcha: if the Windows Time service isn't already running, `w32tm /config` silently has nothing to apply. Start the service first and check `/query /status` afterward to confirm it actually took.
 
 Set the system timezone correctly for wherever the machine actually is:
 ```
@@ -95,7 +95,7 @@ Then set it:
 ```
 timedatectl set-timezone <zone> 2>/dev/null || { ln -sf /usr/share/zoneinfo/<zone> /etc/localtime; echo <zone> > /etc/timezone; }
 ```
-> **Gotcha:** a running daemon inside the container typically reads the timezone once at startup, so anything already running keeps logging in the old timezone until it restarts. Reboot the container (or restart the daemon) afterward if the new timezone needs to take effect right away.
+> Gotcha: a running daemon inside the container typically reads the timezone once at startup, so anything already running keeps logging in the old timezone until it restarts. Reboot the container (or restart the daemon) afterward if the new timezone needs to take effect right away.
 
 ## Verification
 - The time server itself stays synced to public pools and only serves the configured subnet.

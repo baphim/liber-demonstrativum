@@ -75,10 +75,10 @@ rm -rf restored-data/
 Securely wipe any copy of the private key made outside its normal storage, and return physical media to secure storage.
 
 ## Notes / gotchas
-- **WAL mode**: the live install uses `db.sqlite3` with `-shm`/`-wal` files. Backups are taken via `sqlite3 .backup` for a consistent snapshot, so the restored `db.sqlite3` is already clean, never copy old `-shm`/`-wal` files alongside it. See [WAL mode in SQLite](../concepts/wal-mode-sqlite.md).
-- **`rsa_key.pem` matters**: losing or mismatching it breaks existing session tokens and 2FA state. Always restore it alongside the same backup's database, never mix a database from one backup with an RSA key from another.
-- **The decryption key is what makes every backup usable.** It exists on redundant offline media, real redundancy, but nowhere networked. All copies would need to be lost for backups to become unrecoverable.
-- **Full host loss**: also review the systemd unit for environment variables and paths, since these aren't part of the backed-up data path and would need to be recreated separately.
+- WAL mode: the live install uses `db.sqlite3` with `-shm`/`-wal` files. Backups are taken via `sqlite3 .backup` for a consistent snapshot, so the restored `db.sqlite3` is already clean, never copy old `-shm`/`-wal` files alongside it. See [WAL mode in SQLite](../concepts/wal-mode-sqlite.md).
+- `rsa_key.pem` matters: losing or mismatching it breaks existing session tokens and 2FA state. Always restore it alongside the same backup's database, never mix a database from one backup with an RSA key from another.
+- The decryption key is what makes every backup usable. It exists on redundant offline media, real redundancy, but nowhere networked. All copies would need to be lost for backups to become unrecoverable.
+- Full host loss: also review the systemd unit for environment variables and paths, since these aren't part of the backed-up data path and would need to be recreated separately.
 
 ## Related Notes
 - [Vaultwarden](../services/vaultwarden.md)

@@ -29,8 +29,8 @@ tags: [service]
 - Depended on by every other machine and service in the lab.
 
 ## Known Issues
-- **Second node has no backups yet.** The backup job and its storage are on the first node, so guests on the second node, including the second Pi-hole, are not covered. Open.
-- **DNS root cause found and fixed**: new LXCs were repeatedly inheriting the wrong DNS server at creation time, traced back to Tailscale's `accept-dns` setting silently overwriting the host's own resolver, which new containers then inherit by default. Fixed at the source rather than patched reactively each time it recurred. Full writeup in [the incident](../incidents/proxmox-dns-root-cause.md). A related outage in October 2026 is in [DNS outage when the first node went down](../incidents/dns-outage-when-the-first-node-went-down.md).
+- Second node has no backups yet. The backup job and its storage are on the first node, so guests on the second node, including the second Pi-hole, are not covered. Open.
+- DNS root cause found and fixed: new LXCs were repeatedly inheriting the wrong DNS server at creation time, traced back to Tailscale's `accept-dns` setting silently overwriting the host's own resolver, which new containers then inherit by default. Fixed at the source rather than patched reactively each time it recurred. Full writeup in [the incident](../incidents/proxmox-dns-root-cause.md). A related outage in October 2026 is in [DNS outage when the first node went down](../incidents/dns-outage-when-the-first-node-went-down.md).
 - Losing the QDevice host and one node together freezes the survivor, see [QDevice](qdevice.md).
 - The `options timeout` line in `resolv.conf` is a hand edit, and saving DNS settings in the Proxmox GUI drops it.
 - New LXCs created through the web UI have more than once ended up without a default gateway set, requiring a manual fix after the fact.

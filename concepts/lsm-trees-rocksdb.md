@@ -6,7 +6,7 @@ tags:
 
 # LSM-trees (RocksDB)
 
-Log-Structured Merge-tree (LSM-tree) databases operate in a way that never modifies a file once it's created. They first write data to a buffer stored in memory. When memory is full, the data gets pushed to disk as an `.sst` (SSTable) file, a small immutable file. Usually these files undergo compaction, where they are merged into larger files and files flagged to be deleted are actually deleted.
+Log-Structured Merge-tree (LSM-tree) databases never modify a file once it's written. They first write data to an in-memory buffer. Once that buffer fills, the data gets flushed to disk as a small, immutable `.sst` (SSTable) file. These files later go through compaction, where they get merged into larger files and anything flagged for deletion actually gets deleted.
 
 RocksDB is a concrete implementation of an LSM-tree, and one of the most widely used ones. Other examples include LevelDB (which RocksDB was originally forked from) and Cassandra's storage engine.
 

@@ -18,10 +18,10 @@ tags: [service]
 Proxied by [Caddy](caddy.md), served via Caddy's self-signed internal CA rather than a publicly-trusted cert, consistent with being LAN/tailnet-only. It was reachable through the VPS until October 2026. That route and its public DNS record are gone.
 
 ## Dashboards
-- **Node Exporter Full**: a prebuilt community dashboard, visualizing the node_exporter scrapes from every host.
-- **Backups** (custom): tracks two separate backup jobs, each with the same three-panel pattern: a status indicator, a last-run timestamp, and a pass/fail history timeline.
-  - **Proxmox's weekly backup**: fed by a checker script that queries Proxmox's own task log rather than hooking into the backup job directly.
-  - **Vaultwarden's daily backup**: fed directly by the backup script itself as part of its run.
+- Node Exporter Full: a prebuilt community dashboard, visualizing the node_exporter scrapes from every host.
+- Backups (custom): tracks two separate backup jobs, each with the same three-panel pattern: a status indicator, a last-run timestamp, and a pass/fail history timeline.
+  - Proxmox's weekly backup: fed by a checker script that queries Proxmox's own task log rather than hooking into the backup job directly.
+  - Vaultwarden's daily backup: fed directly by the backup script itself as part of its run.
   Both use node_exporter's textfile collector pattern. Full detail in [Prometheus](prometheus.md) and [Vaultwarden](vaultwarden.md).
 
 ## Configuration

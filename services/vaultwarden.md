@@ -31,7 +31,7 @@ It was internet-facing through a VPS until October 2026. Every device I use it f
 - Update steps: [Update Vaultwarden built from source](../runbooks/update-vaultwarden-from-source.md).
 - Rebuilding requires the Rust/Cargo toolchain on the host. It was removed during a storage cleanup at one point and had to be reinstalled before the next update could proceed, now tracked as a known dependency rather than a surprise.
 - A build needs the LXC's memory bumped to 4096MB (`cargo build --release` is memory-hungry).
-- **fail2ban**: a custom filter matches failed-login messages from the systemd journal (Vaultwarden logs to journald, no file redirect). Jail: 5 attempts in 600 seconds triggers a 1-hour ban. Verified against real historical failed-login attempts before going live.
+- fail2ban: a custom filter matches failed-login messages from the systemd journal (Vaultwarden logs to journald, no file redirect). Jail: 5 attempts in 600 seconds triggers a 1-hour ban. Verified against real historical failed-login attempts before going live.
 - A systemd unit typo (`Environment-DATA_FOLDER` instead of `Environment=DATA_FOLDER`) was silently ignored for some time, Vaultwarden was finding its data directory by coincidence, not because the setting was taking effect. Found and fixed during a routine check.
 
 ## Backup
